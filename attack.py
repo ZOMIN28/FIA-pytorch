@@ -52,6 +52,6 @@ class FIAAttack(object):
             with torch.no_grad():
                 eta = torch.clamp(x_adv - x_cle, min=-self.epsilon, max=self.epsilon)
                 X = torch.clamp(x_cle + eta, min=-1, max=1).detach_()
-        
+            x_adv = torch.clamp(x_cle+eta, min=-1, max=1).detach_()
         return X
         
