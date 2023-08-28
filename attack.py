@@ -26,14 +26,15 @@ class FIAAttack(object):
         image_size = X_nat.shape[-1]
         grad_sum = torch.zeros((temp.shape)).to(device)
         for i in range(self.mask_num):
-            self.model.net.zero_grad()
+            self.model.zero_grad()
             img_temp_i = X_nat.clone()
             # get mask
             mask = torch.tensor(np.random.binomial(1, self.prob, size=(batch_size,3,image_size,image_size))).to(device)
             img_temp_i = img_temp_i * mask
             out,y = self.model.features_grad(img_temp_i)
-            out.backward(torch.ones_like(out))
-            grad_temp = y.grad
+            # out.backward(torch.ones_like(out))
+            # grad_temp = y.grad
+            grad_temp = torch.autograd.grad(out, y, grad_outputs=torch.ones_like(out))[0]
             grad_sum += grad_temp
                 # avr
         grad_sum = grad_sum / self.mask_num
