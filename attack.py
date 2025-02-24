@@ -44,6 +44,7 @@ class FIAAttack(object):
         x_cle = X_nat.detach()
         x_adv = X_nat.clone().requires_grad_()
         for epoch in range(self.k):
+            x_adv.requires_grad = True
             self.model.zero_grad()
             mid_feature = self.model.layer2_features(x_adv)
             loss = FIAloss(grad_sum, mid_feature)  # FIA loss
