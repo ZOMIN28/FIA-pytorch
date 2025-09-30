@@ -1,2 +1,2 @@
 # FIA-pytorch
-The paper "Feature Importance-aware Transferable Adversarial Attacks" by pytorch.
+Unofficial PyTorch implementation of the paper "eature Importance-aware Transferable Adversarial Attacks"
